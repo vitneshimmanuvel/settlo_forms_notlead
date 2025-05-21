@@ -10,14 +10,27 @@ app.use(express.json());
 app.post('/api/form-submit', (req, res) => {
   const { fullName, phone, email, service, message } = req.body;
   console.log('Form Submitted from First Form:', { fullName, phone, email, service, message });
-  res.json({ message: 'First form data received successfully!' });
+  res.json({ message: 'Free Quote​ data received successfully!' });
 });
 
 // Second form endpoint
 app.post('/api/academycourses', (req, res) => {
   const { fullName, phone } = req.body;
   console.log('Form Submitted from Second Form:', { fullName, phone });
-  res.json({ message: 'Second form data received successfully!' });
+  res.json({ message: 'Course page data received successfully!' });
+});
+
+// ✅ Third form endpoint
+app.post('/api/customform3', (req, res) => {
+  const { name, phone, email, role, answers } = req.body;
+  console.log('Form Submitted from Contact:', {
+    name,
+    phone,
+    email,
+    role,
+    message: answers?.message || ''
+  });
+  res.json({ message: 'Third form data received successfully!' });
 });
 
 // Health check
