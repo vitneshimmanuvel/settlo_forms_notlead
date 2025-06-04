@@ -94,6 +94,33 @@ app.post('/api/customform3', (req, res) => {
   });
 });
 
+
+
+
+
+// ✅ Fourth Form: Course Enrollment
+app.post('/api/course-enrollment', (req, res) => {
+  const { name, phone, email, courseName } = req.body;
+  
+  console.log('Course Enrollment Submitted:', { name, phone, email, courseName });
+  
+  const mailOptions = {
+    from: 'vitneshsettlo@gmail.com',
+    to: 'vitneshsettlo@gmail.com',
+    subject: `Enrollment Request: ${courseName}`,
+    text: `📝 Course Enrollment\n\n${name} (${phone}, ${email}) is trying to enroll in the ${courseName} course.`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('❌ Email failed:', error);
+      return res.status(500).json({ message: 'Form submitted, but email failed.' });
+    }
+    console.log('✅ Email sent:', info.response);
+    res.json({ message: 'Enrollment data received and email sent successfully!' });
+  });
+});
+
 // ✅ Health Check
 app.get('/', (req, res) => {
   res.send('✅ Backend is running');
